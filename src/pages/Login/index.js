@@ -1,16 +1,60 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { isEmail } from 'validator';
 import { Container } from '../../styles/GlobalStyles';
 import { Form } from '../Register/styled';
+import * as actions from '../../store/modules/auth/actions';
 
 export default function Login() {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, SetPassword] = useState('');
-  const [errorEmail, setErrorEmail] = useState(''); //eslint-disable-line
-  const [errorPassword, setErrorPassword] = useState('');//eslint-disable-line
+  const [errorEmail, setErrorEmail] = useState('');
+  const [errorPassword, setErrorPassword] = useState('');
+  const [touchedEmail, setTouchedEmail] = useState(false);
+  const [touchedPassword, setTouchedPassword] = useState(false);
+
+  useEffect(() => {
+    if (email) {
+      setTouchedEmail(true);
+    }
+    if (touchedEmail && !isEmail(email)) {
+      setErrorEmail('Invalid E-mail');
+    } else {
+      setErrorEmail('');
+    }
+  }, [email, touchedEmail]);
+
+  useEffect(() => {
+    if (password) {
+      setTouchedPassword(true);
+    }
+    if (touchedPassword && (password.length < 6 || password.length > 50)) {
+      setErrorPassword('Invalid Password');
+    } else {
+      setErrorPassword('');
+    }
+  }, [password, touchedPassword]);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    let formErrors = false;
+    if (!isEmail(email)) {
+      setErrorEmail('Invalid E-mail');
+      formErrors = true;
+    }
+    if (password.length < 6 || password.length > 50) {
+      setErrorPassword('Invalid Password');
+      formErrors = true;
+    }
+    if (!formErrors) {
+      dispatch(actions.loginRequest({ email, password }));
+    }
+  }
   return (
     <Container>
       <h1>Login</h1>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <label htmlFor="email">
           Email:{' '}
           <input
