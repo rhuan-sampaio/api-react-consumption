@@ -1,12 +1,14 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { isEmail } from 'validator';
+import { get } from 'lodash';
 import { Container } from '../../styles/GlobalStyles';
 import { Form } from '../Register/styled';
 import * as actions from '../../store/modules/auth/actions';
 
-export default function Login() {
+export default function Login(props) {
   const dispatch = useDispatch();
+  const prevPath = get(props, 'location.state.prevPath', '/');
   const [email, setEmail] = useState('');
   const [password, SetPassword] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
@@ -48,7 +50,7 @@ export default function Login() {
       formErrors = true;
     }
     if (!formErrors) {
-      dispatch(actions.loginRequest({ email, password }));
+      dispatch(actions.loginRequest({ email, password, prevPath }));
     }
   }
   return (
