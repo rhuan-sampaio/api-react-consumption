@@ -13,4 +13,10 @@ export const Nav = styled.nav`
     margin: 0 10px 0 0;
     font-weight: bold;
   }
+  span {
+    padding-top: 2px;
+    margin-left: 5px;
+    color: #66ff33;
+    font-weight: bold;
+  }
 `;

@@ -1,11 +1,12 @@
-﻿import { get } from 'lodash';
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+﻿import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { isEmail } from 'validator';
-import axios from '../../services/axios';
+import * as actions from '../../store/modules/auth/actions';
+
 import { Container } from '../../styles/GlobalStyles';
 import { Form } from './styled';
-import history from '../../services/history';
+
+import Loading from '../../components/Loading';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -17,6 +18,17 @@ export default function Register() {
   const [touchedName, setTouchedName] = useState(false);
   const [touchedEmail, setTouchedEmail] = useState(false);
   const [touchedPassword, setTouchedPassword] = useState(false);
+  const isLoading = useSelector((state) => state.auth.isLoading); // eslint-disable-line
+  const idStored = useSelector((state) => state.auth.user.id); // eslint-disable-line
+  const nameStored = useSelector((state) => state.auth.user.nome); // eslint-disable-line
+  const emailStored = useSelector((state) => state.auth.user.email); // eslint-disable-line
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!idStored) return;
+    setName(nameStored);
+    setEmail(emailStored);
+  }, []); // eslint-disable-line
   useEffect(() => {
     if (name) {
       setTouchedName(true);
@@ -47,14 +59,18 @@ export default function Register() {
     if (password) {
       setTouchedPassword(true);
     }
-    if (touchedPassword && (password.length < 6 || password.length > 50)) {
+    if (
+      !idStored &&
+      touchedPassword &&
+      (password.length < 6 || password.length > 50)
+    ) {
       setErrorPassword('Password must be between 6 and 50 charaters');
       document.getElementById('btn-register').disabled = true;
     } else {
       setErrorPassword('');
       document.getElementById('btn-register').disabled = false;
     }
-  }, [password, touchedPassword]);
+  }, [password, touchedPassword]);// eslint-disable-line
   async function handleSubmit(e) {
     e.preventDefault();
     let formErrors = false;
@@ -66,23 +82,14 @@ export default function Register() {
       formErrors = true;
       setErrorEmail('Email must be valid.');
     }
-    if (password.length < 6 || password.length > 50) {
+    if (!idStored && (password.length < 6 || password.length > 50)) {
       formErrors = true;
       setErrorPassword('Password must be between 6 and 50 charaters');
     }
     if (formErrors) return;
-    try {
-      await axios.post('/users/', {
-        nome: name,
-        email,
-        password,
-      });
-      toast.success('Registration successful');
-      history.push('/login');
-    } catch (err) {
-      const errors = get(err, 'response.data.errors', []);
-      errors.map((error) => toast.error(error));
-    }
+    dispatch(
+      actions.registerRequest({ nome: name, password, email, id: idStored })
+    );
   }
   function handleBlur(e) {
     if (e.target.type === 'text') {
@@ -97,7 +104,8 @@ export default function Register() {
   }
   return (
     <Container>
-      <h1>Create Account</h1>
+      <Loading isLoading={isLoading} />
+      <h1>{idStored ? 'Edit Account' : 'Create Account'}</h1>
       <Form onSubmit={handleSubmit}>
         <label htmlFor="name">
           Name:{' '}
@@ -133,7 +141,7 @@ export default function Register() {
           <p>{errorPassword}</p>
         </label>
         <button id="btn-register" type="submit">
-          Create my Account
+          {idStored ? 'Save' : 'Create my Account'}
         </button>
       </Form>
     </Container>

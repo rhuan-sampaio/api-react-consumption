@@ -1,10 +1,11 @@
 ﻿import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isEmail } from 'validator';
 import { get } from 'lodash';
 import { Container } from '../../styles/GlobalStyles';
 import { Form } from '../Register/styled';
 import * as actions from '../../store/modules/auth/actions';
+import Loading from '../../components/Loading';
 
 export default function Login(props) {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export default function Login(props) {
   const [errorPassword, setErrorPassword] = useState('');
   const [touchedEmail, setTouchedEmail] = useState(false);
   const [touchedPassword, setTouchedPassword] = useState(false);
+  const isLoading = useSelector((state) => state.auth.isLoading);
 
   useEffect(() => {
     if (email) {
@@ -55,6 +57,7 @@ export default function Login(props) {
   }
   return (
     <Container>
+      <Loading isLoading={isLoading} />
       <h1>Login</h1>
       <Form onSubmit={handleSubmit}>
         <label htmlFor="email">
