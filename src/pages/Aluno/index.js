@@ -4,22 +4,25 @@ import PropType from 'prop-types';
 import { get } from 'lodash';
 import { isEmail, isInt, isFloat } from 'validator';
 import { toast } from 'react-toastify';
+import { FaEdit, FaUserCircle } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import * as actions from '../../store/modules/auth/actions';
 import { Container } from '../../styles/GlobalStyles';
-import { Form } from './styled';
+import { Form, ProfilePicture, Title } from './styled';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 import history from '../../services/history';
 
 export default function Aluno({ match }) {
   const dispatch = useDispatch();
-  const id = get(match, 'params.id', 0);
+  const id = get(match, 'params.id', '');
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [age, setAge] = useState('');
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
+  const [photo, setPhoto] = useState('');
   const [isLoading, setIsloading] = useState(false);
   const [error, setError] = useState({
     nameError: '',
@@ -50,6 +53,7 @@ export default function Aluno({ match }) {
         setAge(data.idade);
         setWeight(data.peso);
         setHeight(data.altura);
+        setPhoto(Photo);
         setIsloading(false);
       } catch (err) {
         setIsloading(false);
@@ -134,7 +138,18 @@ export default function Aluno({ match }) {
   return (
     <Container>
       <Loading isLoading={isLoading} />
-      <h1>{id ? 'Edit Student' : 'New Student'}</h1>
+      <Title>{id ? 'Edit Student' : 'New Student'}</Title>
+      {id ? (
+        <ProfilePicture>
+          {photo ? <img src={photo} alt={name} /> : <FaUserCircle size={180} />}
+          <Link to={`/photos/${id}`}>
+            <FaEdit size={24} />
+          </Link>
+        </ProfilePicture>
+      ) : (
+        ''
+      )}
+
       <Form onSubmit={handleSubmit}>
         <input
           type="text"
