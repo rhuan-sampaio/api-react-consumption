@@ -32,14 +32,6 @@ export default function Aluno({ match }) {
     weightError: '',
     heightError: '',
   });
-  // const [touched, setTouched] = useState({
-  //   name: false,
-  //   lastName: false,
-  //   email: false,
-  //   age: false,
-  //   weight: false,
-  //   height: false,
-  // });
   useEffect(() => {
     if (!id) return;
     async function getData() {
@@ -67,7 +59,7 @@ export default function Aluno({ match }) {
       }
     }
     getData();
-  }, [id]);
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     let isValid = true;

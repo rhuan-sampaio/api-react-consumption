@@ -25,7 +25,6 @@ export default function Photos({ match }) {
     const formData = new FormData();
     formData.append('aluno_id', id);
     formData.append('photo', file);
-    console.log(formData);
 
     try {
       setIsLoading(true);
@@ -38,8 +37,6 @@ export default function Photos({ match }) {
       setIsLoading(false);
       const { status } = get(err, 'response', '');
       toast.error('Error when send the image');
-      console.log(err);
-      const errors = get(err, 'response.data.errors', []);
       if (status === 401) {
         toast.error('You must login again');
         dispatch(actions.loginFailure());
