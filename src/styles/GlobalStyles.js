@@ -10,8 +10,9 @@ export default createGlobalStyle`
   box-sizing: border-box;
 }
 body {
+  background-color: #262524;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='125' height='125' viewBox='0 0 120 120'%3E%3Cpolygon fill='%23FAE7FF' fill-opacity='0.01' points='120 0 120 60 90 30 60 0 0 0 0 0 60 60 0 120 60 120 90 90 120 60 120 0'/%3E%3C/svg%3E");
   font-family: sans-serif;
-  background: ${colors.primaryDarkColor};
   color: ${colors.primaryDarkColor};
 }
 html, body, #root {

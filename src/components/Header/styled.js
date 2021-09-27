@@ -1,17 +1,21 @@
 ﻿import styled from 'styled-components';
-import { primaryColor, iconColor } from '../../config/colors';
+import { iconColor } from '../../config/colors';
 
 export const Nav = styled.nav`
-  background: ${primaryColor};
-  padding: 20px;
+  background: #fff;
+  padding: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 
   a {
     color: ${iconColor};
     margin: 0 10px 0 0;
     font-weight: bold;
+    &:hover {
+      filter: brightness(150%);
+    }
   }
   .online {
     display: flex;

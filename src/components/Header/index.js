@@ -32,7 +32,7 @@ export default function Header() {
       </Link>
       <Link to="../../register">
         {isLoggedIn ? (
-          <FaUserAlt size={23} title="Edit" />
+          <FaUserAlt size={22} title="Edit" />
         ) : (
           <FaUserPlus size={24} title="Register" />
         )}

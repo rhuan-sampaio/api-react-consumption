@@ -178,27 +178,31 @@ export default function Alunos() {
                   />
                 </label>
               </form>
-              <div>
-                <span>Edit</span>
-                <Link to={`/aluno/${selectedAluno.id}/edit`}>
-                  <FaUserEdit
-                    color={iconColor}
-                    size={16}
-                    display={isLoggedIn ? 'inline' : 'none'}
-                  />
-                </Link>
-                <span>Erase</span>
-                <Link onClick={handleDeleteAsk} to="/aluno">
-                  <FaWindowClose
-                    onClick={() => {
-                      setConfirmModal(true);
-                    }}
-                    color={iconColor}
-                    size={16}
-                    display={isLoggedIn ? 'inline' : 'none'}
-                  />
-                </Link>
-              </div>
+              {isLoggedIn ? (
+                <div>
+                  <span>Edit</span>
+                  <Link to={`/aluno/${selectedAluno.id}/edit`}>
+                    <FaUserEdit
+                      color={iconColor}
+                      size={16}
+                      display={isLoggedIn ? 'inline' : 'none'}
+                    />
+                  </Link>
+                  <span>Erase</span>
+                  <Link onClick={handleDeleteAsk} to="/aluno">
+                    <FaWindowClose
+                      onClick={() => {
+                        setConfirmModal(true);
+                      }}
+                      color={iconColor}
+                      size={16}
+                      display={isLoggedIn ? 'inline' : 'none'}
+                    />
+                  </Link>
+                </div>
+              ) : (
+                <></>
+              )}
 
               <button onClick={handleClickClose} type="submit">
                 Close
@@ -227,8 +231,7 @@ export default function Alunos() {
             </Modal>
             <div>
               <button type="submit" onClick={(e) => handleClickOpen(e, index)}>
-                View Info{' '}
-                <FaEdit size={10} display={isLoggedIn ? 'inline' : 'none'} />
+                View Info <FaEdit size={10} />
               </button>
             </div>
           </div>
