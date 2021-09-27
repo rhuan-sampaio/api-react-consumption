@@ -15,7 +15,6 @@ export const AlunoContainer = styled.div`
     padding: 5px 10px;
     transition: all 600ms;
     p {
-      text-align: center;
       padding: 0 10px;
     }
     div a {
