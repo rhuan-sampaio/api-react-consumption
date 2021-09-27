@@ -19,7 +19,7 @@ html, body, #root {
 }
 button {
   cursor: pointer;
-  background: ${colors.primaryColor};
+  background: ${colors.primaryDarkColor};
   padding: 10px 20px;
   border: none;
   color: #fff;
@@ -55,4 +55,8 @@ export const Container = styled.section`
   padding: 30px;
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  h1 {
+    text-align: center;
+    font-size: 26px;
+  }
 `;

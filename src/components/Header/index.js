@@ -9,6 +9,7 @@ import {
 } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import history from '../../services/history';
 import * as actions from '../../store/modules/auth/actions';
 
@@ -21,6 +22,7 @@ export default function Header() {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(actions.loginFailure());
+    toast.success('You have successfully logged out');
     history.push('/');
   };
   return (
@@ -28,7 +30,7 @@ export default function Header() {
       <Link to="/">
         <FaHome size={24} title="Home" />
       </Link>
-      <Link to="register">
+      <Link to="../../register">
         {isLoggedIn ? (
           <FaUserAlt size={23} title="Edit" />
         ) : (
@@ -46,10 +48,9 @@ export default function Header() {
       )}
 
       {isLoggedIn && (
-        <>
-          <FaCircle title="User Online" size={24} color="#66ff33" />{' '}
-          <span>Online</span>
-        </>
+        <div className="online">
+          <FaCircle title="User Online" size={24} /> <span>Online</span>
+        </div>
       )}
     </Nav>
   );

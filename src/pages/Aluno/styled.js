@@ -59,7 +59,7 @@ export const ProfilePicture = styled.div`
     position: absolute;
     bottom: 0;
     color: #fff;
-    background: ${color.primaryColor};
+    background: ${color.primaryDarkColor};
     width: 36px;
     height: 36px;
     border-radius: 50%;

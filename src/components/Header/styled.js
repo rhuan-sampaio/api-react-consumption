@@ -1,5 +1,5 @@
 ﻿import styled from 'styled-components';
-import { primaryColor } from '../../config/colors';
+import { primaryColor, iconColor } from '../../config/colors';
 
 export const Nav = styled.nav`
   background: ${primaryColor};
@@ -9,14 +9,19 @@ export const Nav = styled.nav`
   justify-content: center;
 
   a {
-    color: #fff;
+    color: ${iconColor};
     margin: 0 10px 0 0;
     font-weight: bold;
   }
-  span {
-    padding-top: 2px;
-    margin-left: 5px;
+  .online {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #66ff33;
-    font-weight: bold;
+    cursor: default;
+    transition: all 300ms;
+  }
+  .online:hover {
+    filter: brightness(200%);
   }
 `;
