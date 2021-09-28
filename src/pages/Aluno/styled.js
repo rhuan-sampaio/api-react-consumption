@@ -19,12 +19,12 @@ export const Form = styled.form`
     margin-bottom: 20px;
   }
   input {
-    height: 40px;
-    font-size: 18px;
+    height: 35px;
+    font-size: 16px;
     border: 1px solid #ddd;
     padding: 0 10px;
     border-radius: 4px;
-    margin-top: 5px;
+    margin: 5px 0;
     &:focus {
       box-shadow: 0 0 3px ${color.primaryColor};
     }
@@ -35,7 +35,7 @@ export const Form = styled.form`
     margin-top: 2px;
   }
   button {
-    margin-top: 20px;
+    margin-top: 10px;
   }
 `;
 
@@ -47,8 +47,8 @@ export const ProfilePicture = styled.div`
   position: relative;
   margin-top: 30px;
   img {
-    width: 180px;
-    height: 180px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
   }
   a {
@@ -57,11 +57,11 @@ export const ProfilePicture = styled.div`
     justify-content: center;
     border: none;
     position: absolute;
-    bottom: 0;
+    bottom: 5px;
     color: #fff;
     background: ${color.primaryDarkColor};
-    width: 36px;
-    height: 36px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
   }
 `;

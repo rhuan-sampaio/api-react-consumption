@@ -33,7 +33,9 @@ export default function Aluno({ match }) {
     heightError: '',
   });
   useEffect(() => {
+    setIsloading(false);
     if (!id) return;
+
     async function getData() {
       try {
         setIsloading(true);
@@ -59,7 +61,7 @@ export default function Aluno({ match }) {
       }
     }
     getData();
-  });
+  }, [id]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     let isValid = true;
@@ -133,9 +135,9 @@ export default function Aluno({ match }) {
       <Title>{id ? 'Edit Student' : 'New Student'}</Title>
       {id ? (
         <ProfilePicture>
-          {photo ? <img src={photo} alt={name} /> : <FaUserCircle size={180} />}
+          {photo ? <img src={photo} alt={name} /> : <FaUserCircle size={130} />}
           <Link to={`/photos/${id}`}>
-            <FaEdit size={24} />
+            <FaEdit size={16} />
           </Link>
         </ProfilePicture>
       ) : (

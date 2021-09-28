@@ -182,11 +182,7 @@ export default function Alunos() {
                 <div>
                   <span>Edit</span>
                   <Link to={`/aluno/${selectedAluno.id}/edit`}>
-                    <FaUserEdit
-                      color={iconColor}
-                      size={16}
-                      display={isLoggedIn ? 'inline' : 'none'}
-                    />
+                    <FaUserEdit color={iconColor} size={16} />
                   </Link>
                   <span>Erase</span>
                   <Link onClick={handleDeleteAsk} to="/aluno">
@@ -196,7 +192,6 @@ export default function Alunos() {
                       }}
                       color={iconColor}
                       size={16}
-                      display={isLoggedIn ? 'inline' : 'none'}
                     />
                   </Link>
                 </div>

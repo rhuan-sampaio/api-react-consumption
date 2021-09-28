@@ -3,7 +3,6 @@ import {
   FaHome,
   FaSignInAlt,
   FaUserAlt,
-  FaCircle,
   FaPowerOff,
   FaUserPlus,
 } from 'react-icons/fa';
@@ -28,29 +27,35 @@ export default function Header() {
   return (
     <Nav>
       <Link to="/">
-        <FaHome size={24} title="Home" />
+        <FaHome size={17} title="Home" />
+        <span>Home</span>
       </Link>
       <Link to="../../register">
         {isLoggedIn ? (
-          <FaUserAlt size={22} title="Edit" />
+          <>
+            <FaUserAlt size={16} title="Edit" /> <span>Edit Account</span>
+          </>
         ) : (
-          <FaUserPlus size={24} title="Register" />
+          <>
+            <FaUserPlus size={16} title="Register" />
+            <span>Register</span>
+          </>
         )}
       </Link>
       {isLoggedIn ? (
-        <Link onClick={handleLogout} to="/logout" title="Logout">
-          <FaPowerOff size={24} />
-        </Link>
+        <>
+          <Link onClick={handleLogout} to="/logout" title="Logout">
+            <FaPowerOff size={16} />
+            <span>Logout</span>
+          </Link>
+        </>
       ) : (
-        <Link to="login" title="Login">
-          <FaSignInAlt size={24} />
-        </Link>
-      )}
-
-      {isLoggedIn && (
-        <div className="online">
-          <FaCircle title="User Online" size={24} /> <span>Online</span>
-        </div>
+        <>
+          <Link to="login" title="Login">
+            <FaSignInAlt size={16} />
+            <span>Login</span>
+          </Link>
+        </>
       )}
     </Nav>
   );

@@ -14,6 +14,9 @@ export const AlunoContainer = styled.div`
     justify-content: space-between;
     padding: 5px 10px;
     transition: all 600ms;
+    span {
+      padding: 0 5px;
+    }
     p {
       padding: 0 10px;
     }

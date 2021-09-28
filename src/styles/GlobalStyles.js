@@ -1,6 +1,7 @@
 ﻿import styled, { createGlobalStyle } from 'styled-components';
 import * as colors from '../config/colors';
 import 'react-toastify/dist/ReactToastify.css';
+import background from '../img/background.jpg';
 
 export default createGlobalStyle`
 * {
@@ -10,13 +11,20 @@ export default createGlobalStyle`
   box-sizing: border-box;
 }
 body {
-  background-color: #262524;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='125' height='125' viewBox='0 0 120 120'%3E%3Cpolygon fill='%23FAE7FF' fill-opacity='0.01' points='120 0 120 60 90 30 60 0 0 0 0 0 60 60 0 120 60 120 90 90 120 60 120 0'/%3E%3C/svg%3E");
+  background-image: url(${background});
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
   font-family: sans-serif;
+  position: relative;
+
   color: ${colors.primaryDarkColor};
 }
 html, body, #root {
   height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
 }
 button {
   cursor: pointer;
@@ -43,15 +51,25 @@ ul {
   list-style: none;
 }
 body .Toastify .Toastify__toast-container .Toastify__toast--success {
+  color: #fff;
   background: ${colors.successColor};
 }body .Toastify .Toastify__toast-container .Toastify__toast--error {
+  color: #fff;
   background: ${colors.errorColor};
 }
 `;
-
+export const OpacityLayer = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100% !important;
+  background: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  z-index: -1;
+`;
 export const Container = styled.section`
   max-width: 480px;
-  background: #fff;
+  background: ${colors.primaryColor};
   margin: 30px auto;
   padding: 30px;
   border-radius: 4px;

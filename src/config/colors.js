@@ -1,4 +1,4 @@
-﻿export const primaryColor = '#f7fff7';
+﻿export const primaryColor = 'linear-gradient(-45deg, #fafafa, #edf5f4)';
 export const primaryDarkColor = '#343434';
 
 export const iconColor = '#343434';

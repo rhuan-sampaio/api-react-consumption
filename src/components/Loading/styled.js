@@ -16,7 +16,7 @@ export const Container = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.6);
     z-index: 20;
     display: flex;
     align-items: center;
