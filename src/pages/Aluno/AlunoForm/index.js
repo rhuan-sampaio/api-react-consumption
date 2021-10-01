@@ -1,8 +1,8 @@
 ﻿import React from 'react';
 import { Formik, Form } from 'formik';
-import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import schema from './schema';
 import TextField from './TextField';
 
 export default function AlunoForm({ savedData, onSubmit, setIsloading }) {
@@ -26,26 +26,6 @@ export default function AlunoForm({ savedData, onSubmit, setIsloading }) {
     age: '',
   };
 
-  const schema = yup.object().shape({
-    name: yup.string().required('Name is required').min(3),
-    lastname: yup
-      .string()
-      .required('Last name is required')
-      .min(3, 'Must be at least 3 characters'),
-    email: yup
-      .string()
-      .email('Please choose a valid e-mail')
-      .required('E-mail is required'),
-    weight: yup
-      .number()
-      .typeError('Please choose a valid number')
-      .required('Weight is required'),
-    height: yup
-      .number()
-      .typeError('Please choose a valid number')
-      .required('height is required'),
-    age: yup.number().integer().required('Age is required'),
-  });
   return (
     <Formik
       className="form-container"

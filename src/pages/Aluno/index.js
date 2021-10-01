@@ -56,7 +56,7 @@ export default function Aluno({ match }) {
       }
     }
     getData();
-  }, [id]);
+  }, [id, dispatch]);
 
   const handleSubmit = async (values) => {
     try {
