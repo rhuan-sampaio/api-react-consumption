@@ -1,16 +1,20 @@
 ﻿import styled from 'styled-components';
+import * as colors from '../../config/colors';
 
 const media = {
   width600: '@media(max-width: 600px)',
 };
 export const Container = styled.div`
+  strong {
+    color: #f00;
+  }
   p {
     margin: 20px;
   }
   font-size: 16px;
   max-width: 75%;
-  background: #fff;
-  border-radius: 15px;
+  background: ${colors.primaryColor};
+  border-radius: 8px;
   padding: 15px 10px;
   display: flex;
   flex-direction: column;
@@ -20,6 +24,7 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 5px;
     button {
       margin: 5px 10px;
     }
@@ -56,7 +61,7 @@ export const Container = styled.div`
     border: none;
     padding: 5px 10px;
     border-radius: 4px;
-    background: #111;
+    background: ${colors.primaryDarkColor};
     color: white;
     margin: 10px auto;
     cursor: pointer;

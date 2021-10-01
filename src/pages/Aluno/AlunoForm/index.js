@@ -1,21 +1,33 @@
 ﻿import React from 'react';
-
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
-import { get } from 'react-hook-form';
+import { get } from 'lodash';
 import TextField from './TextField';
 
-export default function AlunoForm({ setters, ...values }) {
-  const setName = get(setters, 'setName', false);
-  const setLastName = get(setters, 'setLastName', false);
-  const setEmail = get(setters, 'setEmail', false);
-  const setAge = get(setters, 'setAge', false);
-  const setWeight = get(setters, 'setWeight', false);
-  const setHeight = get(setters, 'setHeight', false);
-  const { name, lastName, age, email, weight, height } = values;
+export default function AlunoForm({ savedData, onSubmit, setIsloading }) {
+  const data = {
+    name: get(savedData, 'name', ''),
+    lastname: get(savedData, 'lastName', ''),
+    email: get(savedData, 'email', ''),
+    weight: get(savedData, 'weight', ''),
+    height: get(savedData, 'height', ''),
+    age: get(savedData, 'age', ''),
+  };
+  const handleSubmit = (values) => {
+    onSubmit(values);
+  };
+  const initialValues = {
+    name: '',
+    lastname: '',
+    email: '',
+    weight: '',
+    height: '',
+    age: '',
+  };
+
   const schema = yup.object().shape({
-    name: yup.string('name is required').required('Name is required').min(3),
+    name: yup.string().required('Name is required').min(3),
     lastname: yup
       .string()
       .required('Last name is required')
@@ -36,63 +48,50 @@ export default function AlunoForm({ setters, ...values }) {
   });
   return (
     <Formik
-      initialValues={{
-        name,
-        lastname: '',
-        email: '',
-        weight: '',
-        height: '',
-        age: '',
-      }}
+      className="form-container"
+      onSubmit={(values) => handleSubmit(values)}
+      enableReinitialize
+      initialValues={data || initialValues}
       validationSchema={schema}
     >
       {() => (
         <div>
+          {}
           <Form>
             <TextField
               label="Name"
               name="name"
+              placeholder="Enter student name"
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
             />
             <TextField
               label="Last Name"
               name="lastname"
+              placeholder="Enter student last name"
               type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <TextField
-              label="Age"
-              name="age"
-              type="number"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
             />
             <TextField
               label="E-mail"
               name="email"
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email address"
             />
             <TextField
               label="Weight"
               name="weight"
               type="text"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
+              placeholder="Weight"
             />
             <TextField
               label="Height"
               name="height"
               type="text"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
+              placeholder="Height"
             />
-
-            <button type="submit">Send</button>
+            <TextField label="Age" name="age" type="number" placeholder="Age" />
+            <button onClick={setIsloading} type="submit">
+              Send
+            </button>
           </Form>
         </div>
       )}
@@ -101,6 +100,7 @@ export default function AlunoForm({ setters, ...values }) {
 }
 
 AlunoForm.propTypes = {
-  setters: PropTypes.shape({}).isRequired,
-  values: PropTypes.shape({}).isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  savedData: PropTypes.shape({}).isRequired,
+  setIsloading: PropTypes.func.isRequired,
 };

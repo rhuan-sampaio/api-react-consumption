@@ -1,7 +1,7 @@
-﻿import { call, put, all, takeLatest } from 'redux-saga/effects'; // eslint-disable-line
-import { toast } from 'react-toastify'; // eslint-disable-line
+﻿import { call, put, all, takeLatest } from 'redux-saga/effects';
+import { toast } from 'react-toastify';
 import { get } from 'lodash';
-import * as actions from './actions'; // eslint-disable-line
+import * as actions from './actions';
 import * as types from '../types';
 import axios from '../../../services/axios';
 import history from '../../../services/history';

@@ -18,7 +18,8 @@ body {
   font-family: sans-serif;
   position: relative;
 
-  color: ${colors.primaryDarkColor};
+  color: ${colors.fontColor};
+
 }
 html, body, #root {
   height: 100%;
@@ -51,11 +52,10 @@ ul {
   list-style: none;
 }
 body .Toastify .Toastify__toast-container .Toastify__toast--success {
-  color: #fff;
-  background: ${colors.successColor};
+  color: ${colors.primaryDarkColor};
 }body .Toastify .Toastify__toast-container .Toastify__toast--error {
-  color: #fff;
-  background: ${colors.errorColor};
+  color: ${colors.primaryDarkColor};
+
 }
 `;
 export const OpacityLayer = styled.div`
@@ -68,7 +68,7 @@ export const OpacityLayer = styled.div`
   z-index: -1;
 `;
 export const Container = styled.section`
-  max-width: 480px;
+  max-width: 50%;
   background: ${colors.primaryColor};
   margin: 30px auto;
   padding: 30px;

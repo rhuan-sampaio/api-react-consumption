@@ -4,8 +4,15 @@ import * as colors from '../../config/colors';
 export const Title = styled.h1`
   text-align: center;
 `;
+export const P = styled.p`
+  margin: 15px;
+  text-align: center;
+`;
 
 export const Form = styled.form`
+  p {
+    text-align: center;
+  }
   label {
     width: 180px;
     height: 180px;

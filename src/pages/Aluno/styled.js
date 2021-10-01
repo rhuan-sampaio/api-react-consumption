@@ -9,36 +9,6 @@ export const Paragraph = styled.p`
   font-size: 60pt;
 `;
 
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-  label {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-  }
-  input {
-    height: 35px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    padding: 0 10px;
-    border-radius: 4px;
-    margin: 5px 0;
-    &:focus {
-      box-shadow: 0 0 3px ${color.primaryColor};
-    }
-  }
-  p {
-    color: red;
-    font-size: 12px;
-    margin-top: 2px;
-  }
-  button {
-    margin-top: 10px;
-  }
-`;
-
 export const ProfilePicture = styled.div`
   display: flex;
   justify-content: center;
@@ -63,5 +33,56 @@ export const ProfilePicture = styled.div`
     width: 26px;
     height: 26px;
     border-radius: 50%;
+  }
+`;
+
+export const FormContainer = styled.div`
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    form {
+      display: flex;
+      padding: 15px;
+      flex-direction: column;
+      div {
+        display: flex;
+        flex-direction: column;
+        margin: 15px;
+
+        label {
+          margin: 0 auto;
+          font-weight: bold;
+          display: grid;
+          font-size: 14px;
+          color: #383636;
+        }
+        input {
+          padding: 10px 10px 18px 10px;
+          outline: none;
+          border: none;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+          border-top-left-radius: 4px;
+          border-top-right-radius: 4px;
+          height: 30px;
+          transition: all 300ms;
+          background: none;
+          &::placeholder {
+            text-align: center;
+            color: rgba(0, 0, 0, 0.5);
+          }
+          &:focus {
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+          }
+        }
+      }
+      p {
+        grid-column-start: 2;
+        color: #f70024;
+        font-size: 12px;
+        text-align: center;
+      }
+    }
   }
 `;

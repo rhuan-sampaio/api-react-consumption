@@ -3,13 +3,15 @@ import { get } from 'lodash';
 import {
   FaUserCircle,
   FaEdit,
-  FaWindowClose,
+  FaRegTrashAlt,
   FaUserEdit,
   FaPlus,
+  FaRegTimesCircle,
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
+import { useTransition, animated } from 'react-spring';
 import { Container } from '../../styles/GlobalStyles';
 import { AlunoContainer, ProfilePicture, NewAluno } from './styled';
 import { iconColor } from '../../config/colors';
@@ -25,7 +27,17 @@ export default function Alunos() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState({});
   const [confirmModal, setConfirmModal] = useState(false);
+  const transition = useTransition(modalOpen, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  });
 
+  const transitionConfirModal = useTransition(confirmModal, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  });
   useEffect(() => {
     async function getData() {
       try {
@@ -63,7 +75,7 @@ export default function Alunos() {
       setIsLoading(false);
       setModalOpen(false);
       setConfirmModal(false);
-      toast.success('Student deleted successfully.');
+      toast.success('The student was successfully deleted.');
     } catch (err) {
       const errors = get(err, 'response.data.errors', []);
       errors.map((error) => toast.error(error));
@@ -83,7 +95,6 @@ export default function Alunos() {
     <Container>
       <Loading isLoading={isLoading} />
       <h1>Students</h1>
-
       <NewAluno to="/aluno/">
         <button type="submit">
           <span>
@@ -98,28 +109,44 @@ export default function Alunos() {
             className="aluno-div"
             key={String(aluno.id)}
           >
-            <ProfilePicture>
+            <ProfilePicture className="picture">
               {get(aluno, 'Photos[0].url', false) ? (
                 <img src={aluno.Photos[0].url} alt="" />
               ) : (
                 <FaUserCircle size={36} />
               )}
             </ProfilePicture>
-            <span>{aluno.nome}</span>
-            <span>{aluno.email}</span>
-            <Modal onClose={() => setModalOpen(false)} modalOpen={modalOpen}>
+            <span className="name">{aluno.nome}</span>
+            <span className="email">{aluno.email}</span>
+            <div>
+              <button
+                className="view-info"
+                type="submit"
+                onClick={(e) => handleClickOpen(e, index)}
+              >
+                View Info <FaEdit size={10} />
+              </button>
+            </div>
+          </div>
+        ))}
+      </AlunoContainer>
+      {transition((style, item) =>
+        item ? (
+          <animated.div style={style} className="item">
+            <Modal onClose={() => setModalOpen(false)}>
               {get(selectedAluno, 'Photos[0].url') ? (
                 <img
                   src={selectedAluno.Photos[0].url}
                   alt={selectedAluno.nome}
                 />
               ) : (
-                <FaUserCircle size={80} />
+                <FaUserCircle className="no-img" size={80} />
               )}
 
               <form action="/">
                 <label htmlFor="nome">
-                  Name:
+                  <span>Name:</span>
+
                   <input
                     id="nome"
                     type="text"
@@ -129,7 +156,8 @@ export default function Alunos() {
                 </label>
 
                 <label htmlFor="sobrenome">
-                  Lastname:
+                  <span>Lastname:</span>
+
                   <input
                     id="sobrenome"
                     type="text"
@@ -139,7 +167,8 @@ export default function Alunos() {
                 </label>
 
                 <label htmlFor="email">
-                  E-mail:
+                  <span>E-mail:</span>
+
                   <input
                     id="email"
                     type="text"
@@ -148,7 +177,8 @@ export default function Alunos() {
                   />
                 </label>
                 <label htmlFor="age">
-                  Age:
+                  <span>Age:</span>
+
                   <input
                     id="age"
                     type="text"
@@ -158,7 +188,7 @@ export default function Alunos() {
                 </label>
 
                 <label htmlFor="weight">
-                  Weight:
+                  <span>Weight:</span>
                   <input
                     id="weight"
                     type="text"
@@ -168,8 +198,7 @@ export default function Alunos() {
                 </label>
 
                 <label htmlFor="height">
-                  {' '}
-                  Height:
+                  <span>Height:</span>
                   <input
                     id="height"
                     type="text"
@@ -180,13 +209,13 @@ export default function Alunos() {
               </form>
               {isLoggedIn ? (
                 <div>
-                  <span>Edit</span>
                   <Link to={`/aluno/${selectedAluno.id}/edit`}>
+                    <span>Edit</span>
                     <FaUserEdit color={iconColor} size={16} />
                   </Link>
-                  <span>Erase</span>
                   <Link onClick={handleDeleteAsk} to="/aluno">
-                    <FaWindowClose
+                    <span>Erase</span>
+                    <FaRegTrashAlt
                       onClick={() => {
                         setConfirmModal(true);
                       }}
@@ -202,36 +231,47 @@ export default function Alunos() {
               <button onClick={handleClickClose} type="submit">
                 Close
               </button>
-              <ConfirmModal modalOpen={confirmModal}>
-                <p>Deleting student {selectedAluno.nome}, are you sure? </p>
-                <div>
-                  <button
-                    onClick={(e) =>
-                      handleDelete(e, selectedAluno.id, selectedAluno)
-                    }
-                    type="submit"
-                  >
-                    Delete
-                  </button>
-                  <button
-                    onClick={() => {
-                      setConfirmModal(false);
-                    }}
-                    type="submit"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </ConfirmModal>
+              {transitionConfirModal((styleConfirmModal, itemConfirmModal) =>
+                itemConfirmModal ? (
+                  <animated.div style={styleConfirmModal} className="item">
+                    <ConfirmModal modalOpen={confirmModal}>
+                      <div>
+                        <FaRegTimesCircle size={30} color="#F00" />
+                      </div>
+                      <p>
+                        Deleting <strong>{selectedAluno.nome.trim()}</strong>,
+                        are you sure?
+                      </p>
+                      <div>
+                        <button
+                          onClick={(e) =>
+                            handleDelete(e, selectedAluno.id, selectedAluno)
+                          }
+                          type="submit"
+                        >
+                          Delete
+                        </button>
+                        <button
+                          onClick={() => {
+                            setConfirmModal(false);
+                          }}
+                          type="submit"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </ConfirmModal>
+                  </animated.div>
+                ) : (
+                  ''
+                )
+              )}
             </Modal>
-            <div>
-              <button type="submit" onClick={(e) => handleClickOpen(e, index)}>
-                View Info <FaEdit size={10} />
-              </button>
-            </div>
-          </div>
-        ))}
-      </AlunoContainer>
+          </animated.div>
+        ) : (
+          ''
+        )
+      )}
     </Container>
   );
 }
