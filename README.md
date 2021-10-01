@@ -8,3 +8,7 @@ This repository contains an API consumption from this [API](https://api.rhuansam
 * ReactJS (Redux, Router, Saga, Persist )
 * Styled Components
 * Axios
+* React-Spring
+* Lottie
+* Formik
+* Yup
